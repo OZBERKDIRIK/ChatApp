@@ -28,9 +28,20 @@ public class MessageServer {
                     Person person = null;
                     switch (operator.toLowerCase(Locale.forLanguageTag("TR"))) {
                         case "register":
-                               break;
+                            System.out.println("İsim: ");
+                            String name= dataIn.readUTF();
+                            System.out.println("Soyad: ");
+                            String surname = dataIn.readUTF();
+                            boolean isLogin = personService.login(name,surname);
+                            dataOut.writeBoolean(isLogin);
+                            break;
                         case "auth":
-                                break;
+                            System.out.println("İsim: ");
+                            name = dataIn.readUTF();
+                            System.out.println("Soyad: ");
+                            surname=dataIn.readUTF();
+                            boolean isAuth=personService.signUp(name,surname);
+                            dataOut.writeBoolean(isAuth);
                         case "send":
 
                             break;
