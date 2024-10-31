@@ -36,7 +36,9 @@ public class Message
         messageID++;
     }
 
-
+    public Message (){
+        
+    }
     public Person getSender() {
         return sender;
     }
