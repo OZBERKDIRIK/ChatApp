@@ -14,8 +14,8 @@ import java.util.Map;
 
 
 public class MessageFile extends MessagerFile implements TxtFileOperations {
-    private File sentMessage = new File(messagerAppFile, "GönderilenMesaj.txt");
-    private File receivedMessage = new File(messagerAppFile, "AlınanMesaj.txt");
+    private static File sentMessage = new File(messagerAppFile, "Gönderilen-Mesaj.txt");
+    private static File receivedMessage = new File(messagerAppFile, "Alınan-Mesaj.txt");
 
     private MessageService messageService = new MessageService();
     private Gson gson = new Gson();
@@ -55,5 +55,10 @@ public class MessageFile extends MessagerFile implements TxtFileOperations {
         }
 
     }
-
+    public File getReceivedMessage(){
+        return  receivedMessage;
+    }
+    public File getSentMessage(){
+        return  sentMessage;
+    }
 }

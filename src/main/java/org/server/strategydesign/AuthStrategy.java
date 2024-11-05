@@ -1,10 +1,14 @@
 package org.server.strategydesign;
 
+import org.messagerfile.PersonFile;
+import org.person.Person;
 import org.person.PersonService;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.List;
 
 public class AuthStrategy implements  Strategy {
 
@@ -17,9 +21,13 @@ public class AuthStrategy implements  Strategy {
     }
 
     @Override
-    public void execute() {
-
-
+    public void execute(String name, String surname) {
+        boolean isLogin = personService.isLogin(name,surname);
+        if(isLogin){
+            dataOut.write("AUTH SUCCESS");
+        }else{
+            dataOut.write("AUTH FAILURE");
+        }
     }
 
 }

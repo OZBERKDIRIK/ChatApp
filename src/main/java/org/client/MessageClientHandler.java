@@ -42,7 +42,7 @@ public class MessageClientHandler implements Runnable {
 
                 //Seçilen strategy uygulandı
                 StrategyContext commandStrategy = new StrategyContext(strategy);
-                commandStrategy.executeStrategy();
+                commandStrategy.executeStrategy(clientInput[1], clientInput[2]);
             }
         } catch (IOException e) {
             throw new RuntimeException("Socket I/O hatası " +e );

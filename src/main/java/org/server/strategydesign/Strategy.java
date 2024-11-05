@@ -1,5 +1,5 @@
 package org.server.strategydesign;
 
 public interface Strategy {
-    void execute();
+    void execute(String content1, String content2);
 }

@@ -15,9 +15,9 @@ import java.util.Map;
 
 public class PersonFile extends MessagerFile implements TxtFileOperations{
 
-    private File registerPersonFile  = new File(messagerAppFile,"KayıtlıKisiler.txt");
-
+    private static File registerPersonFile  = new File(messagerAppFile,"KayıtlıKisiler.txt");
     private Gson gson = new Gson();
+
     @Override
     public void txtFileWrite(File file) {
         if (file.exists() && file.equals(registerPersonFile)) {
@@ -52,4 +52,7 @@ public class PersonFile extends MessagerFile implements TxtFileOperations{
         }
     }
 
+    public File getRegisteredPersonFile(){
+        return registerPersonFile;
+    }
 }
