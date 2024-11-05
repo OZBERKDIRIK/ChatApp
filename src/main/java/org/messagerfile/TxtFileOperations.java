@@ -7,5 +7,5 @@ import java.io.File;
 public interface TxtFileOperations {
     Object txtFileRead(File file);
 
-    void txtFileWrite(Object objcet);
+    void txtFileWrite(File file);
 }

@@ -1,38 +1,59 @@
 package org.messagerfile;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import org.message.Message;
+import org.message.MessageService;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
-public class MessageFile extends MessagerFile implements TxtFileOperations{
-    private File sentMessage = new File(messagerAppFile,"GönderilenMesaj.txt");
-    private File receivedMessage = new File(messagerAppFile,"AlınanMesaj.txt");
+public class MessageFile extends MessagerFile implements TxtFileOperations {
+    private File sentMessage = new File(messagerAppFile, "GönderilenMesaj.txt");
+    private File receivedMessage = new File(messagerAppFile, "AlınanMesaj.txt");
+
+    private MessageService messageService = new MessageService();
     private Gson gson = new Gson();
+
     @Override
     public List<Message> txtFileRead(File file) {
-        try{
-            String line="";
-            List<Message> messageList = new ArrayList<>();
-            BufferedReader filerReader = new BufferedReader(new FileReader(file));
-            while((line = filerReader.readLine())!=null){
-
-            }
-            filerReader.close();
-        }catch(IOException exception){
-            System.out.println("Dosya okunamadı");
+        String line = "";
+        try (JsonReader reader = new JsonReader(new FileReader(file))) {
+            Type listType = new TypeToken<ArrayList<Message>>() {
+            }.getType();
+            List<Message> messageJsonList = new Gson().fromJson(reader, listType);
+            return messageJsonList;
+        } catch (IOException e) {
+            System.out.println("Dosyadan okuma başarılı olamadı ....");
+            return null;
         }
-        return null;
     }
-
     @Override
-    public void txtFileWrite(Object objcet) {
+    public void txtFileWrite(File file) {
+        if (file.exists()) {
+            try (BufferedWriter dataOut = new BufferedWriter(new FileWriter(file, true))) {
+                Map<Integer, Message> messageMap = messageService.getSentMessage();
+                String message = gson.toJson(messageMap);
+                dataOut.write(message);
+            } catch (IOException e) {
+                System.out.println("Dosya yazma işlemi başarılı olamadı");
+            }
+        }else{
+            file.mkdir();
+            try (BufferedWriter dataOut = new BufferedWriter(new FileWriter(file, true))) {
+                Map<Integer, Message> messageMap = messageService.getSentMessage();
+                String message = gson.toJson(messageMap);
+                dataOut.write(message);
+            } catch (IOException e) {
+                System.out.println("Dosya yazma işlemi başarılı olamadı");
+            }
+        }
 
     }
+
 }

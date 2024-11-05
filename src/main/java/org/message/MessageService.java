@@ -6,25 +6,30 @@ import java.util.*;
 
 public class MessageService implements MessageOperations {
 
-    private Map<Integer, Message> sentMessage;
+    private static Map<Integer, Message> sentMessage;
 
     public MessageService() {
-        sentMessage = new HashMap<Integer, Message>();
+        setSentMessage(new HashMap<Integer, Message>());
+    }
+
+    public static void setSentMessage(Map<Integer, Message> sentMessage) {
+        MessageService.sentMessage = sentMessage;
     }
 
     public Map<Integer, Message> getSentMessage() {
         return sentMessage;
+
     }
 
     //Mesajı gönderen kşinin id ile birlikte mesaj iletilmiş oldu.
     public void sendMessage(Message message) {
-        sentMessage.put(Person.getPersonID(), message);
+        getSentMessage().put(Person.getPersonID(), message);
     }
 
     public Message readMessage(int messageId) {
         Message message = null;
         try {
-            for (Map.Entry<Integer, Message> entry : sentMessage.entrySet()) {
+            for (Map.Entry<Integer, Message> entry : getSentMessage().entrySet()) {
                 if (entry.getKey().equals(messageId)) {
                     message = entry.getValue();
                 }
@@ -37,6 +42,6 @@ public class MessageService implements MessageOperations {
     }
 
     public List<Message> getListMessage() {
-        return (List<Message>) sentMessage.values();
+        return (List<Message>) getSentMessage().values();
     }
 }
