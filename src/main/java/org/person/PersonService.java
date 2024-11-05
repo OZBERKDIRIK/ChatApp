@@ -1,11 +1,15 @@
 package org.person;
 
+import com.google.gson.Gson;
+import org.database.TxtFileOperations;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonService implements SignUpOperation , LoginOperations{
+public class PersonService implements PersonOperations {
 
-    private List<Person> registeredPerson;
+    private static List<Person> registeredPerson;
 
     public PersonService(){
         registeredPerson=new ArrayList<>();
@@ -35,4 +39,5 @@ public class PersonService implements SignUpOperation , LoginOperations{
         }
 
     }
+
 }
