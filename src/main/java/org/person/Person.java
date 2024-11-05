@@ -12,9 +12,11 @@ public class Person {
     private String name;
     private String surname;
 
+    private  static int personID=0;
     public Person (String name , String surname){
         this.name=name;
         this.surname=surname;
+        personID++;
     }
 
     public String getName() {
@@ -23,5 +25,9 @@ public class Person {
 
     public String getSurname() {
         return surname;
+    }
+
+    public static int getPersonID(){
+        return personID;
     }
 }

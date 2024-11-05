@@ -1,9 +1,11 @@
-package org.database;
+package org.messagerfile;
 
 import com.google.gson.Gson;
 
+import java.io.File;
+
 public interface TxtFileOperations {
-    Gson txtFileRead();
+    Object txtFileRead(File file);
 
     void txtFileWrite(Object objcet);
 }

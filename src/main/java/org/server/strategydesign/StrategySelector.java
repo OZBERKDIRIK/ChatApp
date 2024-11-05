@@ -1,5 +1,6 @@
 package org.server.strategydesign;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ public class StrategySelector {
 
     private Map<String , Strategy> strategyMap = new HashMap<>();
 
-    public StrategySelector(){
+    public StrategySelector() throws IOException {
         strategyMap.put("AUTH",new AuthStrategy());
         strategyMap.put("REGISTER" , new RegisterStrategy());
         strategyMap.put("LIST" , new ListStrategy());
